@@ -1,0 +1,17 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <h1>Hello {{ person.name }}</h1>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('myAppController', function($scope){
+                $scope.person = {
+                    name: 'Benjamin'
+                };
+            });
+        </script>
+    </body>
+</html>

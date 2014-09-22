@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                <tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.age}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('myAppController', function($scope){
+                $scope.users = [{
+                  name: 'Anna',
+                  age: 21
+                }, {
+                  name: 'Matias',
+                  age: 43
+                }, {
+                  name: 'Lucas',
+                  age: 12
+                }];
+            });
+        </script>
+    </body>
+</html>

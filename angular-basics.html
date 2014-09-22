@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS 101</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+
+      <section data-bespoke-state="start">
+        <div class="content">
+          <div class="unbrokenline"></div>
+          <h1>AngularJS 101</h1>
+          <div class="byline">
+            <div class="classy">
+              Benjamin Maggi
+            </div>
+          </div>
+          <h5>benjaminmaggi@gmail.com</h5>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Angular's creation</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- It was created by Miško Hevery</h4>
+            <h4 class="important">- All previous MV* FrontEnd frameworks had 80% of the code for DOM manipulation and 20% for code that matters</h4>
+            <h4>- You had to explicitly say exactly what you wanted to do with DOM every time</h4>
+            <h4>- It wasn't fast to develop at all</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Angular's 4D</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4 class="important">- Declarative</h4>
+            <h4>- Data Binding</h4>
+            <h4>- Directives</h4>
+            <h4>- Dependency Injection</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.1 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <h2>Binding</h2>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.2 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              <h4>What is databinding?</h4>
+            </div>
+          </div>
+          <div class="byline">
+            <div class="classy">
+              Data binding is the process that establishes a connection between the application UI (User Interface) and business logic. If the settings and notifications are correctly set, the data reflects changes when made. It can also mean that when the UI is changed, the underlying data will reflect that change. (wikipedia)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.2 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Clasic approach</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>1. A function gets attached to the ‘click’ event of button</h4>
+            <h4>2. The functon collects fields and puts them into a variable.</h4>
+            <h4>3. The variables gets serialized into JSON and goes to server.</h4>
+            <h4>4. We mark “request in process” state using another variable (to not react double clicks mainly).</h4>
+            <h4>5. We modify DOM adding indicator.</h4>
+            <h4>6. As soon as the request finihes we parse response body and get invalidation data.</h4>
+            <h4>7. We modify DOM adding invalidation information and removing the loading indicator.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- Note that step 7 has huge risk of the encapsulation violation: we modify our view heavily. Where should this logic be? How to avoid duplication of code with something that generated the form initially? Basically it’s the most popular place for projects to turn into mess.
+      -->
+      <!-- TOPIC 1.b.3 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>The benefit of using angular:</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Angular makes databinding declarative, DOM augumenting</h4>
+            <h4>- Works with themplates (mustache).</h4>
+            <h4>- No need to manipulate the DOM.</h4>
+            <h4>- Models are POJO simpler syntax than accessors.</h4>
+            <h4>- It Automagically monitors your objects for you, no need to write listeners !</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.4 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <h2>Any downsides ??</h2>
+          <h4>Yes but...</h4> <!-- brief talk about dirty checking vs change listeners -->
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.5 Introducción a AngularJS: Que es el binding -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Classic Hello World application.</h4>
+          <br />
+          <pre><code class="language-php">
+            &lt;input ng-model="person.name" type="text" placeholder="Your name"&gt;
+            &lt;h1&gt;Hello {{ person.name }}&lt;/h1&gt;
+          </code></pre>
+          <br />
+          <h4>When the value in the input field changes, the person.name will be updated and the view will reflect
+    the change.</h4>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.6 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Recap:</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Automatic data binding gives us the ability to consider the view to be a projection of the model state</h4>
+            <h4>- Any time the model is changed in the client-side model, the view reflects these changes without writing any custom code. It just works.</h4>
+            <h4>- In the Model View Controller (or MVC) view of the world, the controller doesn’t have to worry about being in the mix of rendering the view..</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.1 Angular Scopes http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <h2>Scopes</h2>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.2 Angular Scopes http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>The $scope View of the World</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- The scopes of the application refer to the application model.</h4>
+            <h4>- Scopes serve as the glue between the controller and the view.</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
+            <h4>- Scopes in AngularJS have hierarchy.</h4>
+            <h4>- Scopes are the source of truth.</h4>
+            <h4>- Scopes provide the ability to watch for model changes.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.3 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>All properties found on the $scope object are automatically accessible to the view.</h4>
+          <br />
+            <pre><code class="language-php">
+              &lt;a href="#/home"&gt;&lt;/a&gt;
+              &lt;div ng-app="myApp"&gt;
+                &lt;h1&gt;Hello {{ name }}&lt;/h1&gt;
+              &lt;/div&gt;
+            </code></pre>
+            <br />
+            <h4>code:</h4>
+            <br />
+            <pre><code class="language-javascript">
+              angular.module('myApp', [])
+              .run(function($rootScope) {
+                $rootScope.name = "World";
+              });
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.4 Angular Scopes http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>What Can Scopes Do?</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- They provide observers to watch for model changes.</h4>
+            <h4>- They provide the ability to propagate model changes.</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
+            <h4>- They can be nested.</h4>
+            <h4>- Scopes are the source of truth.</h4>
+            <h4>- They provide an execution environment in which expressions are evaluated.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.d.1 Angular Scopes http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <h2>Controllers</h2>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <img src="img/mvc.png" style="max-height:60%;">
+        </div>
+      </section>
+
+      <!-- TOPIC X.1 Angular Controllers http://www.slideshare.net/kennystoltz/angular-js-routing -->
+
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Controller Hierarchy</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <img src="http://slides.yearofmoo.com/angularjs-strangeloop-slides/images/digest.png">
+            <h4>- Every part of an AngularJS application has a parent scope.</h4>
+            <h4>- .</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.1 Angular Directives http://www.slideshare.net/sbegaudeau/angular-js-101-everything-you-need-to-know-to-get-started -->
+      <section>
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              <h4>Directives</h4>
+            </div>
+          </div>
+          <div class="byline">
+            <div class="classy">
+              What HTML would have been, had it been designed for building web-apps
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.3 Angular Directives -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Extends HTML to structure your application</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Extends HTML to structure your application.</h4>
+            <h4>- Can be placed in element names, attributes, classnames and comments.</h4>
+            <h4>- Declarative.</h4>
+            <h4>- Use the data available in the scope.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.4 Angular Directives -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Let's have a look at an example: ngRepeat.</h4>
+          <br />
+            <pre><code class="language-php">
+              &lt;tr ng-repeat=&quot;user in users&quot;&gt;
+                  &lt;td&gt;{{user.name}}&lt;/td&gt;
+                  &lt;td&gt;{{user.age}}&lt;/td&gt;
+              &lt;/tr&gt;
+            </code></pre>
+            <br />
+            <h4>It ilterates on a collection in the scope to create the DOM.</h4>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.5 Angular Directives -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>AngularJS comes with a collection of standard directives that can be combined.</h4>
+          <br />
+            <pre><code class="language-markup">
+              &lt;tr ng-repeat="user in users" ng-show="user.age >= 18"&gt;
+                  &lt;td&gt;{{user.name}}&lt;/td&gt;
+                  &lt;td&gt;{{user.age}}&lt;/td&gt;
+              &lt;/tr&gt;
+            </code></pre>
+            <br />
+            <h4>ngShow let you hide elements that do not validate a given expression.</h4>
+        </div>
+      </section>
+
+      <!-- http://www.sitepoint.com/practical-guide-angularjs-directives-part-two/ -->
+      <!-- TOPIC 2.a.6 Angular Directives -->
+      <section>
+        <div class="content list">
+          <h2>Transclusion</h2>
+        </div>
+      </section>
+  
+  <!-- TOPIC 1.d.1 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing -->
+  <section>
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>Routes: REST/Servers v. Client Apps</h2>
+      <div class="unbrokenline"></div>
+      <div class="fake-list">
+        <h4>- HTTP is stateless, so routes help deﬁne application state</h4>
+        <h4>- REST emphasizes semantic routes</h4>
+        <br />
+        <h4>- But...</h4>
+        <h4>- There is more state than can be represented in a route (user state, session state)</h4>
+        <h4>- Main function is `then` which receives 2 functions, one for success and one for error</h4>
+        <h4>- Client-side apps don’t actually need routes to work (e.g. many jquery-based apps) </h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.2 Angular Routing -->
+  <section>
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>Why use routes?</h2>
+      <div class="unbrokenline"></div>
+      <div class="fake-list">
+        <h4>- Make the back button work as expected</h4>
+        <h4>- Make major (page-like) transitions clear</h4>
+        <h4>- Allow easy linking</h4>
+        <h4>- Make testing easier</h4>
+        <h4>- Encapsulate some state</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.3 Angular Routing -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      Installation
+        <pre><code class="language-javascript">
+          &lt;script src="angular.js"&gt;&lt;/script&gt;
+          &lt;script src="angular-route.js"&gt;&lt;/script&gt;
+        </code></pre>
+        Invoke
+        <pre><code class="language-javascript">
+          var myApp = angular.module('myApp', 'ngRoute')
+        </code></pre>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.4 Angular Routing -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      $routeProvider
+        <pre><code class="language-javascript">
+          var myApp = angular.module('myApp', ['ngRoute']);
+          myApp.config(function ($routeProvider) {
+            $routeProvider
+              .when('/users', {
+                templateUrl: 'list.html',
+                controller : 'listController'
+              })
+              .when('/users/:id', {
+                templateUrl: 'detail.html',
+                controller : 'detailController'
+              })
+              .otherwise({ redirectTo: '/' });
+          });
+        </code></pre>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.5 Angular Routing -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      Basic Routes
+        <pre><code class="language-javascript">
+          .when('/users/:id', {
+            templateUrl: 'detail.html',
+            controller : 'detailController'
+          })
+        </code></pre>
+        <span>:id</span> stored in $route.current.params, is available to the controller and the resolve functions.
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.6 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      Routing Flow
+        <pre><code class="language-javascript">
+          &lt;a href="#/home"&gt;&lt;/a&gt;
+        </code></pre>
+        Or
+        <pre><code class="language-javascript">
+          $location.path("#/home");
+        </code></pre>
+        <!-- append image here -->
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.7 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 8 -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      <div class="unbrokenline"></div>
+      <h2>Routing Boardcasted Events</h2>
+      <div class="unbrokenline"></div>
+      <ul>
+        <li>$locationChangeStart</li>
+        <ul>
+          <li>$routeUpdate</li>
+          <li>$routeChangeStart</li>
+          <ul>
+            <li>$routeChangeError</li>
+            <li>$routeChangeSuccess</li>
+          </ul>
+        </ul>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.8 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+  <section data-bespoke-state="livecode">
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>Route Object</h2>
+      <div class="unbrokenline"></div>
+      <div class="fake-list">
+        <h4>- Controller or controllerAs</h4>
+        <h4>- Template or TemplateUrl</h4>
+        <h4>- Resolve</h4>
+        <h4>- RedirectTo</h4>
+        <h4>- [reloadOnSearch=true]</h4>
+        <h4>- [caseInsensitiveMatch=false]</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.9 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 11 -->
+  <section data-bespoke-state="livecode">
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>Resolve Option</h2>
+      <div class="unbrokenline"></div>
+      Each item in the resolve map:
+      <ul>
+        <li>An optional map of dependencies which should be injected into the controller</li>
+        <li>In any of these dependencies are promises, the router will wait for them all to be resolver or one to be rejected before the controller is instantiated</li>
+        <ul>
+          <li>Success: all promises are resolved successfully.</li>
+          <li>Error: any of the promises are rejected.</li>
+        </ul>
+      </ul>
+      Using resolve for database object means:
+      <ul>
+        <li>No UI flickr as promises are resolved</li>
+        <li>Controllers can asume objects exists</li>
+        <li>Tests are cleaner: pass in data object explicitly</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- TOPIC 1.d.10 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      Resolve for Data
+        <pre><code class="language-javascript">
+          when('/tag/:tagName',  {
+            resolve: {
+              tagResolve: ['tag','$route', function(tagService,  $route) {
+                return tagService.get($route.current.params.tagName);
+              }],
+              sparkClustersResolve: ['sparkCluster','$route', function(sparkClusterService,   $route) {
+                return sparkClusterService.getSparkClustersByTag($route.current.params.tagName);
+              }]
+            }});
+        </code></pre>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.11 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      <div class="unbrokenline"></div>
+      <h2>Resolve Option</h2>
+      <div class="unbrokenline"></div>
+
+        Treat your resolved object like a dependency in the controller:
+        <pre><code class="language-javascript">
+          .controller('ViewTagCtrl', ['$scope', 'tagResolve', 'sparkCluster'], function (...){
+            /*  */
+          })
+        </code></pre>
+        Use a ‘route controller’, not a 'view controller' (ng-­controller):
+        <pre><code class="language-javascript">
+          .when('/tag/:tagName',  {
+            controller: 'ViewTagCtrl'
+          })
+        </code></pre>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.12 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing page 10 -->
+  <section data-bespoke-state="livecode">
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>Resolve for Rules</h2>
+      <div class="unbrokenline"></div>
+      Resolve for Rules Rejected Promises cause routes to fail. You can use this to make rules for the route like ACLs or prerequisites. Reject a promise to cause a route to fail.
+      <br />
+      Using resolve to make rules means:
+      <div class="fake-list">
+        <h4>- All resolution rules must pass before route succeeds and controller is instantiated</h4>
+        <h4>- Common ACLs (logged-in) speciﬁed in routes, not each controller or service</h4>
+        <h4>- Can redirect the user to an appropriate page (also can do user-facing error)</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.13 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 12 -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      Resolve for Rules
+        <pre><code class="language-javascript">
+          when('/tag/:tagName', {
+            resolve: {
+              mustAuth: ['route', function(routeService) {
+                return routeService.mustAuth('/');
+              }]}]}});
+
+              routeService.mustAuth = function(redirectTo) {
+                var authDeferred,  p;
+                authDeferred = $q.defer();
+                p  = userService.getCurrent();
+                p.then(function(currentUser) {
+                  if  (angular.isUndefined(currentUser._id)) {
+                    $location.url(redirectTo);
+                    authDeferred.reject();
+                  } else {
+                    authDeferred.resolve(mustAuth);
+                  }
+                });
+                return authDeferred.promise;
+              };
+        </code></pre>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.14 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 12 -->
+  <section data-bespoke-state="livecode">
+    <div class="content">
+      Cancelling Route Changes
+        <pre><code class="language-javascript">
+          $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            var result = $window.confirm('Continue?');
+            if (!result) {
+              event.preventDefault(); return;
+            }
+          });
+        </code></pre>
+    </div>
+  </section>
+
+  <!-- TOPIC 1.d.15 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing page 10 -->
+  <section data-bespoke-state="livecode">
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>Recap</h2>
+      <div class="unbrokenline"></div>
+      <div class="fake-list">
+        <h4>- Angular’s route system is ﬂexible and powerful, if you take advantage of resolve and promises.</h4>
+        <h4>- Probably the best way to deal with user authentication.</h4>
+        <h4>- Angular UI router: use ‘state’ instead of routes. Seems good. Worth considering if you start fresh.</h4>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <!-- dirty checking
+  http://blog.bguiz.com/post/57373805814/accessors-vs-dirty-checking-in-javascript-frameworks/
+  compare angular to other fw: http://stackoverflow.com/questions/9682092/databinding-in-angularjs
+
+
+  databinding across different frameworks:
+  http://n12v.com/2-way-data-binding/
+
+
+  NICE MVC paradign presentation:
+
+  https://docs.google.com/a/socialmetrix.com/presentation/d/1H9u9xd0OE0W1o_5Aeug7uSR0AXXPidtWBQNmpi_ZP9I/edit#slide=id.g568bfdc4_2_71
+
+  3 way databinding ??
+
+  -->
+
+
+  <!--
+    http://staal.io/blog/2014/02/05/2-way-data-binding-under-the-microscope/
+    http://www.slideshare.net/kennystoltz/angular-js-routing
+  -->
+
+
+
+  <!-- TOPIC 3.c.1 Angular Avanzado: Que es el $digest loop y el $apply (dirty checking) -->
+  <section data-bespoke-state="livecode">
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>Databinding under the hood</h2>
+      <div class="unbrokenline"></div>
+      <div class="fake-list">
+        <img src="http://slides.yearofmoo.com/angularjs-strangeloop-slides/images/digest.png" style="max-height:50%;max-width:50%;">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- http://www.slideshare.net/behinddwalls/angular-js-31910008 -->
+  <!-- TOPIC 3.c.2 Angular Avanzado: Que es el $digest loop y el $apply (dirty checking) -->
+  <section data-bespoke-state="livecode">
+    <div class="content list">
+      <div class="unbrokenline"></div>
+      <h2>The Digest Loop and $apply</h2>
+      <div class="unbrokenline"></div>
+      <div class="fake-list">
+        <h4>- AngularJS compares a value with its previous value and if it has changed then a change event is fired. This is dirty checking</h4>
+        <h4>- A digest is the cycle that performs dirty checking. This is initiated via $digest().</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
+        <h4>- No need to manipulate the DOM.</h4>
+        <h4>- Automatically monitors your objects for you and modifies expressions in the view and vice versa.</h4>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- TOPIC X.X Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Routes: REST/Servers v. Client Apps</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- HTTP is stateless, so routes help deﬁne application state</h4>
+            <h4>- REST emphasizes semantic routes</h4>
+
+            <h3>But...</h3>
+            <h4>- There is more state than can be represented in a route (user state, session state)</h4>
+            <h4>- Client-side apps don’t actually need routes to work (e.g. many jquery-based apps) </h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC X.1 Angular Routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Why use routes?</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Make the back button work as expected</h4>
+            <h4>- Make major (page-like) transitions clear</h4>
+            <h4>- Allow easy linking</h4>
+            <h4>- Make testing easier</h4>
+            <h4>- Encapsulate some state</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC X.2 Angular Routing -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Installation</h4>
+          <br />
+            <pre><code class="language-javascript">
+              &lt;script src="angular.js"&gt;&lt;/script&gt;
+              &lt;script src="angular-route.js"&gt;&lt;/script&gt;
+            </code></pre>
+          <br />
+          <h4>Include</h4>
+          <br />
+            <pre><code class="language-javascript">
+              var myApp = angular.module('myApp', 'ngRoute')
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC X.3 Angular Routing -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Configuring $routeProvider</h4>
+          <br />
+            <pre><code class="language-javascript">
+              var myApp = angular.module('myApp', ['ngRoute']);
+              myApp.config(function ($routeProvider) {
+                $routeProvider
+                  .when('/users', {
+                    templateUrl: 'list.html',
+                    controller : 'listController'
+                  })
+                  .when('/users/:id', {
+                    templateUrl: 'detail.html',
+                    controller : 'detailController'
+                  })
+                  .otherwise({ redirectTo: '/' });
+              });
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC X.3 Angular Routing -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Basic Routes</h4>
+          <br />
+            <pre><code class="language-javascript">
+              .when('/users/:id', {
+                templateUrl: 'detail.html',
+                controller : 'detailController'
+              })
+            </code></pre>
+            <br />
+            <strong>:id</strong> is stored in <strong>$route.current.params</strong>, and is available to the controller and the resolve functions.
+        </div>
+      </section>
+
+      <!-- TOPIC X.4 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Routing Flow</h4>
+            <pre><code class="language-javascript">
+              &lt;a href="#/home"&gt;&lt;/a&gt;
+            </code></pre>
+          <h4>Or</h4>
+            <pre><code class="language-javascript">
+              $location.path("#/home");
+            </code></pre>
+            <img src="http://placekitten.com/600/375">
+            <br />
+        </div>
+      </section>
+
+      <!-- TOPIC X.5 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 8 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <div class="unbrokenline"></div>
+          <h2>Routing Boardcasted Events</h2>
+          <div class="unbrokenline"></div>
+          <ul>
+            <li>$locationChangeStart</li>
+            <ul>
+              <li>$routeUpdate</li>
+              <li>$routeChangeStart</li>
+              <ul>
+                <li>$routeChangeError</li>
+                <li>$routeChangeSuccess</li>
+              </ul>
+            </ul>
+          </ul>
+        </div>
+      </section>
+
+      <!-- TOPIC X.6 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Route Object</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Controller or controllerAs</h4>
+            <h4>- Template or TemplateUrl</h4>
+            <h4>- Resolve</h4>
+            <h4>- RedirectTo</h4>
+            <h4>- [reloadOnSearch=true]</h4>
+            <h4>- [caseInsensitiveMatch=false]</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC X.7 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 11 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Resolve Option</h2>
+          <div class="unbrokenline"></div>
+          Each item in the resolve map:
+          <ul>
+            <li>An optional map of dependencies which should be injected into the controller</li>
+            <li>In any of these dependencies are promises, the router will wait for them all to be resolver or one to be rejected before the controller is instantiated</li>
+            <ul>
+              <li>Success: all promises are resolved successfully.</li>
+              <li>Error: any of the promises are rejected.</li>
+            </ul>
+          </ul>
+          Using resolve for database object means:
+          <ul>
+            <li>No UI flickr as promises are resolved</li>
+            <li>Controllers can asume objects exists</li>
+            <li>Tests are cleaner: pass in data object explicitly</li>
+          </ul>
+        </div>
+      </section>
+
+
+      <!-- TOPIC X.8 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Resolve for Data
+            <pre><code class="language-javascript">
+when('/tag/:tagName',  {
+  resolve: {
+    tagResolve: ['tag','$route', function(tagService,  $route) {
+      return tagService.get($route.current.params.tagName);
+    }],
+    sparkClustersResolve: ['sparkCluster','$route', function(sparkClusterService, $route) {
+      return sparkClusterService.getSparkClustersByTag($route.current.params.tagName);
+    }]
+  }
+});
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC X.9 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <div class="unbrokenline"></div>
+          <h2>Resolve Option</h2>
+          <div class="unbrokenline"></div>
+
+            Treat your resolved object like a dependency in the controller:
+            <pre><code class="language-javascript">
+              .controller('ViewTagCtrl', ['$scope', 'tagResolve', 'sparkCluster'], function (...){
+                /*  */
+              })
+            </code></pre>
+            Use a ‘route controller’, not a 'view controller' (ng-­controller):
+            <pre><code class="language-javascript">
+              .when('/tag/:tagName',  {
+                controller: 'ViewTagCtrl'
+              })
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC X.10 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing page 10 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Resolve for Rules</h2>
+          <div class="unbrokenline"></div>
+          Resolve for Rules Rejected Promises cause routes to fail. You can use this to make rules for the route like ACLs or prerequisites. Reject a promise to cause a route to fail.
+          <br />
+          Using resolve to make rules means:
+          <div class="fake-list">
+            <h4>- All resolution rules must pass before route succeeds and controller is instantiated</h4>
+            <h4>- Common ACLs (logged-in) speciﬁed in routes, not each controller or service</h4>
+            <h4>- Can redirect the user to an appropriate page (also can do user-facing error)</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC X.11 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 12 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Resolve for Rules
+            <pre><code class="language-javascript">
+              when('/tag/:tagName', {
+                resolve: {
+                  mustAuth: ['route', function(routeService) {
+                    return routeService.mustAuth('/');
+                  }]}]}});
+
+                  routeService.mustAuth = function(redirectTo) {
+                    var authDeferred,  p;
+                    authDeferred = $q.defer();
+                    p  = userService.getCurrent();
+                    p.then(function(currentUser) {
+                      if  (angular.isUndefined(currentUser._id)) {
+                        $location.url(redirectTo);
+                        authDeferred.reject();
+                      } else {
+                        authDeferred.resolve(mustAuth);
+                      }
+                    });
+                    return authDeferred.promise;
+                  };
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC X.12 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 12 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Cancelling Route Changes
+            <pre><code class="language-javascript">
+              $rootScope.$on('$locationChangeStart', function (event, next, current) {
+                var result = $window.confirm('Continue?');
+                if (!result) {
+                  event.preventDefault(); return;
+                }
+              });
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC X.13 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing page 10 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Recap</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Angular’s route system is ﬂexible and powerful, if you take advantage of resolve and promises.</h4>
+            <h4>- Probably the best way to deal with user authentication.</h4>
+            <h4>- Angular UI router: use ‘state’ instead of routes. Seems good. Worth considering if you start fresh.</h4>
+          </div>
+        </div>
+      </section>
+
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    </body>
+</html>

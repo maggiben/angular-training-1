@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body>
+        <div ng-controller="someController">
+            {{someModel.someValue}}
+            <div ng-controller="childController">
+                {{someModel.someValue}}
+                <br />
+                <button ng-click="childAction()">Talk to parent</button>
+            </div>
+        </div>
+
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('someController', function($scope){
+                $scope.someModel = {
+                    someValue: 'hello human, from parent'
+                }
+            });
+            myApp.controller('childController', function($scope){
+                $scope.childAction = function() {
+                    $scope.someModel.someValue = 'hello human, from child';
+                }
+            });
+        </script>
+    </body>
+</html>

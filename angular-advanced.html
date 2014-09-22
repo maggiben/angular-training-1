@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AngularJS 202</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+      <section data-bespoke-state="start">
+        <div class="content">
+          <div class="unbrokenline"></div>
+          <h1>AngularJS 202</h1>
+          <div class="byline">
+            <div class="classy">
+              by Martin Gontovnikas
+            </div>
+          </div>
+          <h3>@mgonto</h3>
+        </div>
+      </section>
+
+      <!--<section data-bespoke-state="developer">
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              I am a
+            </div>
+          </div>
+          <h2>software developer</h2>
+          <div class="byline">
+            <div class="classy">
+              from Buenos Aires, Argentina
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section data-bespoke-state="steamclock">
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              currently employed by 
+            </div>
+          </div>
+          <h3>Aquicore Inc.</h3>
+          <div class="byline">
+            <div class="classy">
+              making stuff happen
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section data-bespoke-state="programming">
+        <div class="content"></div>
+      </section>
+
+      <section>
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              this talk is about
+            </div>
+          </div>
+          <h3>Learning Restangular</h3>
+          <div class="byline">
+            <div class="classy">
+              and how to consume REST APIs with it
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content">
+          <h2>So Let's start</h3>
+        </div>
+      </section>-->
+
+      <section>
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              Now,
+            </div>
+          </div>
+          <h1>We know all the basics</h1>
+          <div class="byline">
+            <div class="classy">
+              to start coding
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              In this section
+            </div>
+          </div>
+          <h1>We're learning some advanced topics</h1>
+          <div class="byline">
+            <div class="classy">
+              that will help us get AngularJS to its maximum potential
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <h2>So, how does this all work?</h2>
+        </div>
+      </section>
+
+      <section data-bespoke-state="concepts">
+        <div class="content">
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Concepts</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Javascript is a "turn based game"</h4>
+            <h4>- JS code is called via a call stack</h4>
+            <h4>- $digest is a wrapper or decorator for regular function execution</h4>
+            <h4>- $apply performs a $digest</h4>
+            <h4 class="thumb">- Thumb rule: Call $apply when an event/function that's not known by AngularJS is called</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <h2>Then, what's a template?</h2>
+        </div>
+      </section>
+
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Markup</h4>
+          <pre><code class="language-markup">
+&lt;div&gt;
+  &lt;p&gt;My name is {{person.name | firstName}}&lt;/p&gt;
+  &lt;alert-button msg="'Cool message'"/&gt;
+&lt;/div&gt;
+          </code></pre>
+          Watching in JS
+          <pre><code class="language-javascript">
+$scope.personName = null;
+$scope.$watch('person.name', function(name) {
+  if (!name) return;
+
+  $scope.personName = $filter('firstName')(name);
+});
+
+// Or
+$scope.$watch('person.name | firstName', function(name) {
+  if (!name) return;
+
+  $scope.personName = name;
+});
+          </code></pre>
+        </div>
+      </section>
+
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Different watchers
+          <pre><code class="language-javascript">
+$scope.person = {name: "gonto"};
+$scope.$watch('person', function(newValue, oldValue) {
+  if (!newValue) return;
+
+  // Only called on reference change
+});
+
+$scope.$watch('person', function(newValue, oldValue) {
+  if (!newValue) return;
+
+  // Called on value changed
+}, true);
+          </code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="content">
+          <h2>Now let's go back to directives</h2>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Advanced Directives</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Each directive has a compile and a link function</h4>
+            <h4>- It works very similar to handlebar's compile and render but it works with DOM instead of String</h4>
+            <h4>- Compile returns a linker function that given the context will modify the DOM</h4>
+            <h4>- The linker is the function that receives the context</h4>
+            <h4 class="thumb">- Thumb rule: You'll only use compile if you need to reuse the template in the future (ng-repeat, ng-if)</h4>
+          </div>
+        </div>
+      </section>
+
+      <section data-bespoke-state="demo">
+        <div class="content">
+          <h2>Live DEMO: ngModel-form</h2>
+        </div>
+      </section>      
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Advanced Directives</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- You can have multiple directives at one element and have them depend on each other. You use the require keyword for this.</h4>
+            <h4>- Each directive can share its controller with sibling or father/son directives</h4>
+            <h4>- This is used a lot in transclusion and ngModel as we'll see now</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>ngModel</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- It's a very simple directive with a very cool controller</h4>
+            <h4>- Let's <a href="http://docs.angularjs.org/api/ng.directive:ngModel.NgModelController">check the documentation</a> to see what you can do</h4>
+            <h4>- It basically allows for adding transformers for DomToValue, ValueToDom and allows for setting a model to be valid or not.</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>formController</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- By entering a form with name or a ngForm, we're already using this directive</h4>
+            <h4>- It allows us to handle validations of our models joining forces with ngModel</h4>
+            <h4>- It doesn't send form submission to the server unless there's an action. Submission is triggered by the first submit button with ngClick or ngSubmit directive on form element.</h4>
+          </div>
+        </div>
+      </section>
+
+      <section data-bespoke-state="demo">
+        <div class="content">
+          <h2>Live DEMO: http</h2>
+        </div>
+      </section>      
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>$http</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- $http is the low level API for doing requests</h4>
+            <h4>- It's very easy to use, but you have to put the full url and the method to use</h4>
+            <h4>- It returns a promise</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Restangular</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- It's build on top of $http</h4>
+            <h4>- It makes it easy to handle HTTP operations on elements.</h4>
+            <h4>- It handles nested resources and relationship between resources</h4>
+            <h4>- It can return either an object to be filled or a promise</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Promises on AngularJS</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- They're absed on Q library</h4>
+            <h4>- They're A+ compilant</h4>
+            <h4>- It returns right a way an object with listeners for once the value is returned</h4>
+            <h4>- Main function is `then` which receives 2 functions, one for success and one for error</h4>
+            <h4>- If the then callback function returns a new value or a new promise, then a new promise of that value is returned by the then</h4>
+          </div>
+        </div>
+      </section>
+
+      
+
+      <section data-bespoke-state="final" class="intro">
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              This has been
+            </div>
+          </div>
+          <h1>AngularJS 202</h1>
+          <div class="byline">
+            <div class="classy">
+              by Martin Gontovnikas
+            </div>
+          </div>
+          <h3>@mgonto</h3>
+          <img src="img/yupi.gif">
+        </div>
+      </section>
+
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })(); 
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    </body>
+</html>
