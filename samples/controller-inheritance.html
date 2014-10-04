@@ -1,0 +1,19 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body>
+        <input ng-model="name" />
+        <div ng-controller="myAppController">
+            <input ng-model="name" />
+        </div>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.run(function($rootScope) {
+            });
+            myApp.controller('myAppController', function($scope){
+            });
+        </script>
+    </body>
+</html>

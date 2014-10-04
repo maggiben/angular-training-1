@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS 101</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+      
+      <!-- TOPIC 2.a.1 Angular Directives http://www.slideshare.net/sbegaudeau/angular-js-101-everything-you-need-to-know-to-get-started -->
+      <section data-bespoke-state="directive">
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              <h4>Directives</h4>
+            </div>
+          </div>
+          <div class="byline">
+            <div class="classy">
+              What HTML would have been, had it been designed for building web-apps
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.3 Angular Directives -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Extends HTML to structure your application</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Extends HTML to structure your application.</h4>
+            <h4>- Can be placed in element names, attributes, classnames and comments.</h4>
+            <h4>- Declarative.</h4>
+            <h4>- Use the data available in the scope.</h4>
+            <h4>- Add behaviours.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.4 Angular Directives -->
+      <section>
+        <div class="content list">
+          <h2>Angular Directives</h2>
+          <img src="img/native-directives.png">
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.5 Angular Directives -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Let's have a look at an example: ngRepeat.</h4>
+          <br />
+            <pre><code class="language-php">
+              &lt;tr ng-repeat=&quot;user in users&quot;&gt;
+                  &lt;td&gt;{{user.name}}&lt;/td&gt;
+                  &lt;td&gt;{{user.age}}&lt;/td&gt;
+              &lt;/tr&gt;
+            </code></pre>
+            <br />
+            <h4>It ilterates on a collection in the scope to create the DOM.</h4>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.6.a Angular Directives -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Let's have a look at another example: ngRepeatStart & ngRepeatEnd.</h4>
+          <br />
+            <pre><code class="language-php">
+              &lt;div ng-repeat-start=&quot;thing in things&quot;>&lt;/div&gt;
+                &lt;h1&gt;Inner nodes {{thing}}&lt;/h1&gt;
+              &lt;div ng-repeat-end=&quot;&quot;&gt;&lt;/div&gt;
+            </code></pre>
+            <br />
+            <h4>In AngularJS 1.2, ng-repeat now supports multiple elements with the ng-repeat-start directive.</h4>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.7 Angular Directives -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>AngularJS comes with a collection of standard directives that can be combined.</h4>
+          <br />
+            <pre><code class="language-markup">
+              &lt;tr ng-repeat="user in users" ng-show="user.age >= 18"&gt;
+                  &lt;td&gt;{{user.name}}&lt;/td&gt;
+                  &lt;td&gt;{{user.age}}&lt;/td&gt;
+              &lt;/tr&gt;
+            </code></pre>
+            <br />
+            <h4>ngShow let you hide elements that do not validate a given expression.</h4>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.8 Angular Directives -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Directive Definition Object</h4>
+          <br />
+            <pre><code class="language-javascript">
+var myModule = angular.module(...);
+myModule.directive('directiveName', function factory(injectables) {
+  var directiveDefinitionObject = {
+    priority: 0,
+    template: '&lt;div&gt;&lt;/div&gt;', // or // function(tElement, tAttrs) { ... },
+    templateUrl: 'directive.html',
+    transclude: false,
+    restrict: 'A',
+    scope: false,
+    controller: function($scope, $element, $attrs, $transclude, otherInjectables) { ... },
+    require: 'siblingDirectiveName', // or // ['^parentDirectiveName', '?optionalDirectiveName', '?^optionalParent'],
+    compile: function compile(tElement, tAttrs, transclude) {
+      return {
+        pre: function preLink(scope, iElement, iAttrs, controller) { ... },
+        post: function postLink(scope, iElement, iAttrs, controller) { ... }
+      }
+    },
+    link: function postLink(scope, iElement, iAttrs, controller) { ... }
+  };
+  return directiveDefinitionObject;
+});
+            </code></pre>
+            <br />
+            <h4>ngShow let you hide elements that do not validate a given expression.</h4>
+        </div>
+      </section>
+
+      <!-- http://www.sitepoint.com/practical-guide-angularjs-directives-part-two/ -->
+      <!-- TOPIC 2.a.9 Angular Directives -->
+      <section>
+        <div class="content list">
+          <h2>Transclusion</h2>
+        </div>
+      </section>
+  
+  
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    </body>
+</html>

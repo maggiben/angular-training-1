@@ -1,0 +1,56 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/angular.js"></script>
+        <style>
+            .female {
+                background-color: #FFDCF5;
+            }
+            .male {
+                background-color: #DDDCFF;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Compile dynamic HTML</h1>
+        <div ng-controller="myAppController">
+            <label>Select user
+                <select ng-model="selectedUser" ng-options="user.name for user in users"></select>
+            </label>
+            <div class="well" dynamic="selectedUser"></div>
+        </div>
+        <script type="text/ng-template" id="male">
+            <p class="male">Welcome Mr. {{selectedUser.name}}</p>
+        </script>
+        <script type="text/ng-template" id="female">
+            <p class="female">Welcome Miss. {{selectedUser.name}}</p>
+        </script>
+        <script>
+            var myApp = angular.module('myApp', [])
+            .controller('myAppController', function($scope){
+                $scope.users = [
+                    {name:'Anna', sex:'female'},
+                    {name:'Juan', sex:'male'},
+                    {name:'Tomas', sex:'male'},
+                    {name:'Mary', sex:'female'},
+                    {name:'Billie', sex:'male'}
+                ];
+                $scope.selectedUser = $scope.users[2];
+            })
+            .directive('dynamic', function ($compile, $templateCache) {
+              return {
+                restrict: 'A',
+                replace: true,
+                link: function (scope, ele, attrs) {
+                        scope.$watch(attrs.dynamic, function(template) {
+                            var html = $templateCache.get(template.sex);
+                            ele.html(html);
+                            $compile(ele.contents())(scope);
+                        });
+                    }
+                 };
+            });
+        </script>
+    </body>
+</html>

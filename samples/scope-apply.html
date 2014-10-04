@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/jquery-ui.css" rel="stylesheet">
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <input type="text" ng-model="date" jqdatepicker />
+        <br/>
+        <h2>Selected date: {{ date | date:shortDate }}</h2>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('myAppController', function($scope){
+                $scope.date = new Date(1999, 1, 1);
+            });
+            myApp.directive('jqdatepicker', function () {
+                return {
+                    restrict: 'A',
+                    require: 'ngModel',
+                     link: function (scope, element, attrs, ngModelCtrl) {
+                        element.datepicker({
+                            dateFormat: 'DD, d  MM, yy',
+                            defaultDate: scope.date,
+                            onSelect: function (date) {
+                                scope.date = date;
+                                scope.$apply();
+                            }
+                        });
+                    }
+                };
+            });
+        </script>
+    </body>
+</html>

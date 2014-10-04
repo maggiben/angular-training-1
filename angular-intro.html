@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS 101</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+      <section data-bespoke-state="start">
+        <div class="content">
+          <div class="unbrokenline"></div>
+          <h1>AngularJS 101</h1>
+          <div class="byline">
+            <div class="classy">
+              Benjamin Maggi
+            </div>
+          </div>
+          <h5>benjaminmaggi@gmail.com</h5>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Angular's creation</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- It was created by Miško Hevery</h4>
+            <h4 class="important">- All previous MV* FrontEnd frameworks had 80% of the code for DOM manipulation and 20% for code that matters</h4>
+            <h4>- You had to explicitly say exactly what you wanted to do with DOM every time</h4>
+            <h4>- It wasn't fast to develop at all</h4>
+          </div>
+        </div>
+      </section>
+      
+      <section>
+        <div class="content list">
+          <h2>Comparsion</h2>
+        </div>
+      </section>
+      
+      <section>
+        <div class="content list">
+          <img src="img/comparsion.png" style="max-height:80%;">
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Angular's 4D</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4 class="important">- Declarative</h4>
+            <h4>- Data Binding</h4>
+            <h4>- Directives</h4>
+            <h4>- Dependency Injection</h4>
+          </div>
+        </div>
+      </section>
+      
+      
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Rendering</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>• The UI stays up-to-date with the magical $scope object’s properties (a lot like CSS, actually) via dirty- checking.</h4>
+            <h4>• Directives allow you extend HTML with behavioral hooks.</h4>
+            <h4>• Composing attribute directives is powerful</h4>
+            <h4>• Directive API is COMPLETELY NUTS.</h4>
+          </div>
+        </div>
+      </section>
+      
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Data</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>• $http - simple xhr module, mostly exists for dirty checking to just work™.</h4>
+            <h4>• $resource - declarative, model-like module to hook up an HTTP API.</h4>
+          </div>
+        </div>
+      </section>
+      
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>User Interaction</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>• Same paradigm as rendering, use HTML and $scope.</h4>
+            <h4>• Maps an event to a method on $scope with arguments called from the HTML attribute.</h4>
+            <h4>• No delegation, events live with the element.</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Routing</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>• ng-view directive provides a single rendering outlet on the page.</h4>
+            <h4>• Configure matching routes to a template and controller to drive it.</h4>
+            <h4>• Pretty limited since you can’t nest it.</h4>
+            <h4>• They are rethinking their router completely, there’s also ui-router in the meantime that supports nesting.</h4>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Project Stuff</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>• ...</h4>
+            <h4>• linting, testing, minification, dependency management...</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.3 Angular Scopes http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Download</h4>
+          <br />
+            <pre><code class="language-bash">
+              $ bower install angular
+              $ bower init
+            </code></pre>
+        </div>
+      </section>
+      
+      <!-- TOPIC 1.c.3 Angular Scopes http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+            <pre><code class="language-php">
+              &lt;script src="bower_components/angular/angular.min.js"&gt;&lt;/script&gt;
+            </code></pre>
+        </div>
+      </section>
+      
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    </body>
+</html>

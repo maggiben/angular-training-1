@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <p>
+    	In the original series <strong>Star Trek</strong> episode <i>Obsession</i>, Captain Kirk
+    	tells an ensign that one pound of antimatter can destroy a solar system. The truth
+    	is considerably less dramatic. One pound of antimatter equates to 19.5 megatons, which
+    	is comprable to a modern day H-bomb. In order to help prevent such mistakes from 
+    	occurring in the future, I present the anti-matter caculator. Just plug in the amount of
+    	antimatter you're thinking of using and the calculator will return just how much destructive
+    	force it contains.
+    	</p>
+        <br />
+    	<input type="radio" ng-model="factor" name="Weight" value="pounds" />Pounds
+    	<input type="radio" ng-model="factor" name="Weight" value="ounces" />Ounces
+    	<input type="radio" ng-model="factor" name="Weight" value="kilograms" />Kilograms
+    	<input type="radio" ng-model="factor" name="Weight" value="tons" />Tons
+    	<br />
+        <input ng-model="mass" placeholder="mass" />
+        <br />
+        <h1>{{ mass }} {{ factor }} of antimatter contains {{ convert(mass, factor) }} megaton;</h1>
+        <script>
+            var myApp = angular.module('myApp', []);
+            
+            myApp.value('pounds', 19.52);
+            myApp.value('ounces', 1.22);
+            myApp.value('kilograms', 42.96);
+            myApp.value('tons', 39040);
+            
+            myApp.controller('myAppController', function($scope, $injector) {
+                $scope.factor = 'kilograms';
+                $scope.convert = function(mass, factor) {
+                    var conversionFactor = $injector.get(factor);
+                    return (mass * conversionFactor);
+                };
+            });
+        </script>
+    </body>
+</html>

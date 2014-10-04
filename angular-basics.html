@@ -264,6 +264,7 @@
             <h4>- Can be placed in element names, attributes, classnames and comments.</h4>
             <h4>- Declarative.</h4>
             <h4>- Use the data available in the scope.</h4>
+            <h4>- Add behaviours.</h4>
           </div>
         </div>
       </section>
@@ -283,6 +284,21 @@
             <h4>It ilterates on a collection in the scope to create the DOM.</h4>
         </div>
       </section>
+      
+      <!-- TOPIC 2.a.4.a Angular Directives -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Let's have a look at an example: ngRepeatStart & ngRepeatEnd.</h4>
+          <br />
+            <pre><code class="language-php">
+              &lt;div ng-repeat-start=&quot;thing in things&quot;>&lt;/div&gt;
+                &lt;h1&gt;Inner nodes {{thing}}&lt;/h1&gt;
+              &lt;div ng-repeat-end=&quot;&quot;&gt;&lt;/div&gt;
+            </code></pre>
+            <br />
+            <h4>In AngularJS 1.2, ng-repeat now supports multiple elements with the ng-repeat-start directive.</h4>
+        </div>
+      </section>
 
       <!-- TOPIC 2.a.5 Angular Directives -->
       <section data-bespoke-state="livecode">
@@ -300,6 +316,38 @@
         </div>
       </section>
 
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Directive Definition Object</h4>
+          <br />
+            <pre><code class="language-javascript">
+var myModule = angular.module(...);
+myModule.directive('directiveName', function factory(injectables) {
+  var directiveDefinitionObject = {
+    priority: 0,
+    template: '&lt;div&gt;&lt;/div&gt;', // or // function(tElement, tAttrs) { ... },
+    templateUrl: 'directive.html',
+    transclude: false,
+    restrict: 'A',
+    scope: false,
+    controller: function($scope, $element, $attrs, $transclude, otherInjectables) { ... },
+    require: 'siblingDirectiveName', // or // ['^parentDirectiveName', '?optionalDirectiveName', '?^optionalParent'],
+    compile: function compile(tElement, tAttrs, transclude) {
+      return {
+        pre: function preLink(scope, iElement, iAttrs, controller) { ... },
+        post: function postLink(scope, iElement, iAttrs, controller) { ... }
+      }
+    },
+    link: function postLink(scope, iElement, iAttrs, controller) { ... }
+  };
+  return directiveDefinitionObject;
+});
+            </code></pre>
+            <br />
+            <h4>ngShow let you hide elements that do not validate a given expression.</h4>
+        </div>
+      </section>
+
       <!-- http://www.sitepoint.com/practical-guide-angularjs-directives-part-two/ -->
       <!-- TOPIC 2.a.6 Angular Directives -->
       <section>
@@ -308,6 +356,39 @@
         </div>
       </section>
   
+  
+  
+  
+
+    <!-- TOPIC Dependency Injection -->
+    <section>
+      <div class="content list">
+        <h2>Dependency Injection</h2>
+      </div>
+    </section>
+
+    <section>
+      <div class="content">
+        <div class="byline">
+          <div class="classy">
+            <h4>What is DI?</h4>
+          </div>
+        </div>
+        <div class="byline">
+          <div class="classy">
+            Dependency injection is a <strong>software design pattern</strong> in which one or more <strong>dependencies</strong> (or services) are injected, or passed by reference, into a dependent object (or client) and are made part of the client's state. (wikipedia)
+          </div>
+        </div>
+      </div>
+    </section>
+      
+
+    <section>
+      <div class="content list">
+        <img src="img/mvc.png" style="max-height:60%;">
+      </div>
+    </section>
+      
   <!-- TOPIC 1.d.1 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing -->
   <section>
     <div class="content list">
@@ -616,34 +697,34 @@
 
 
 
-  <!-- TOPIC 3.c.1 Angular Avanzado: Que es el $digest loop y el $apply (dirty checking) -->
-  <section data-bespoke-state="livecode">
-    <div class="content list">
-      <div class="unbrokenline"></div>
-      <h2>Databinding under the hood</h2>
-      <div class="unbrokenline"></div>
-      <div class="fake-list">
-        <img src="http://slides.yearofmoo.com/angularjs-strangeloop-slides/images/digest.png" style="max-height:50%;max-width:50%;">
+    <!-- TOPIC 3.c.1 Angular Avanzado: Que es el $digest loop y el $apply (dirty checking) -->
+    <section data-bespoke-state="livecode">
+      <div class="content list">
+        <div class="unbrokenline"></div>
+        <h2>Databinding under the hood</h2>
+        <div class="unbrokenline"></div>
+        <div class="fake-list">
+          <img src="http://slides.yearofmoo.com/angularjs-strangeloop-slides/images/digest.png" style="max-height:50%;max-width:50%;">
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
 
-  <!-- http://www.slideshare.net/behinddwalls/angular-js-31910008 -->
-  <!-- TOPIC 3.c.2 Angular Avanzado: Que es el $digest loop y el $apply (dirty checking) -->
-  <section data-bespoke-state="livecode">
-    <div class="content list">
-      <div class="unbrokenline"></div>
-      <h2>The Digest Loop and $apply</h2>
-      <div class="unbrokenline"></div>
-      <div class="fake-list">
-        <h4>- AngularJS compares a value with its previous value and if it has changed then a change event is fired. This is dirty checking</h4>
-        <h4>- A digest is the cycle that performs dirty checking. This is initiated via $digest().</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
-        <h4>- No need to manipulate the DOM.</h4>
-        <h4>- Automatically monitors your objects for you and modifies expressions in the view and vice versa.</h4>
+    <!-- http://www.slideshare.net/behinddwalls/angular-js-31910008 -->
+    <!-- TOPIC 3.c.2 Angular Avanzado: Que es el $digest loop y el $apply (dirty checking) -->
+    <section data-bespoke-state="livecode">
+      <div class="content list">
+        <div class="unbrokenline"></div>
+        <h2>The Digest Loop and $apply</h2>
+        <div class="unbrokenline"></div>
+        <div class="fake-list">
+          <h4>- AngularJS compares a value with its previous value and if it has changed then a change event is fired. This is dirty checking</h4>
+          <h4>- A digest is the cycle that performs dirty checking. This is initiated via $digest().</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
+          <h4>- No need to manipulate the DOM.</h4>
+          <h4>- Automatically monitors your objects for you and modifies expressions in the view and vice versa.</h4>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
 
 

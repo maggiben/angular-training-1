@@ -1,0 +1,97 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <p>In this list, the add-letter directive has a higher priority than
+          ng-repeat, so its compilation happens first. The transclude function
+          sees the 'The Letter' text in it's cloned element.
+        </p>
+        <ul>
+            <li id="1" fake-repeat="things" binding="t" add-letter1>{{ t }}</li>
+        </ul>
+        <p>In this list, the add letter directive is compiled after ng-repeat, but
+          is still only compiled once by using the transclude function. This means
+          that the DOM has been generated, but the bindings for t have not been 
+        </p>
+        <ul>
+            <li id="2" fake-repeat="things" binding="t" add-letter2>{{ t }}</li>
+        </ul>
+        <ul>
+            <li id="3" fake-repeat="things" binding="t" add-letter3>{{ t }}</li>
+        </ul>
+        <script>
+        var app = angular.module('myApp', []);
+        
+        app.controller('myAppController', function($scope) {
+            $scope.things = ['A', 'B', 'C'];
+        });
+        
+        app.directive('fakeRepeat', function($log) {
+            return {
+                priority: 1000,
+                terminal: true,
+                transclude: 'element',
+                compile: function(el, attr, linker) {
+                    $log.log('[fake-repeat' + attr.id + '] Compile');
+                    return function(scope, $element, $attr) {
+                        $log.log('[fake-repeat' + attr.id + '] Link');
+                        angular.forEach(scope.$eval($attr.fakeRepeat).reverse(), function(x) {
+                            var child = scope.$new();
+                            child[attr.binding] = x;
+                            linker(child, function(clone) {
+                                $log.log('[fake-repeat' + attr.id + '] Transclude');
+                                $element.after(clone);
+                            })
+                        })
+                    }
+                }
+            }
+        });
+        
+        app.directive('addLetter1', function($log) {
+            return {
+                priority: 1001,
+                terminal: false,
+                compile: function(element) {
+                    $log.log('[add-letter1] Compile ')
+                    element.prepend('The Letter ');
+                    return function() {
+                        $log.log('[add-letter1] Link')
+                    }
+                }
+            }
+        });
+        
+        app.directive('addLetter2', function($log) {
+            return {
+                priority: 50,
+                terminal: false,
+                compile: function(element) {
+                    $log.log('[add-letter2] Compile')
+                    element.prepend('The Letter ');
+                    return function() {
+                        $log.log('[add-letter2] Link')
+                    }
+                }
+            }
+        });
+        
+        app.directive('addLetter3', function($log) {
+            return {
+                priority: 1001,
+                terminal: true,
+                compile: function(element) {
+                    $log.log('[add-letter3] Compile');
+                    element.prepend('The Letter ');
+                    return function() {
+                        $log.log('[add-letter3] Link');
+                    }
+                }
+            }
+        });
+        </script>
+    </body>
+</html>

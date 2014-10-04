@@ -6,12 +6,23 @@
     <body ng-controller="myAppController">
         <h1>Hello {{ person.name }}</h1>
         <script>
-            var myApp = angular.module('myApp', []);
+            var myApp = angular.module('myApp', [
+                // 'controllers.myAppController' // controller dependency
+            ]);
             myApp.controller('myAppController', function($scope){
                 $scope.person = {
                     name: 'Benjamin'
                 };
             });
+            
+            // Modularize then save to separate file
+            /*
+            angular.module('controllers.myAppController', []).controller('myAppController', ['$scope', function($scope){
+                $scope.person = {
+                    name: 'Benjamin'
+                };
+            }]);
+            */
         </script>
     </body>
 </html>

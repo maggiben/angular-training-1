@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS 101</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+      
+      <!-- TOPIC 2.a.1 Modules -->
+      <section data-bespoke-state="module">
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              <h4>Modules</h4>
+            </div>
+          </div>
+          <div class="byline">
+            <div class="classy">
+              We can think of a module as a container for the different parts of your app – <strong>controllers</strong>, <strong>services</strong>, <strong>filters</strong>, <strong>directives</strong>, etc.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.3 Modules -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Angular modules</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>• You can package code as reusable modules.</h4>
+            <h4>• Modules can be loaded in any order (or even in parallel) because modules delay execution..</h4>
+            <h4>• Break your application to multiple modules.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.3 Modules -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Providers</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>• Value</h4>
+            <h4>• Constant</h4>
+            <h4>• Service</h4>
+            <h4>• Factory</h4>
+            <h4>• Decorator</h4>
+            <h4>• Provider</h4>
+            <h4>• Special purpose objects: (Controller, Directive, Filter and Animation).</h4>
+          </div>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.4 Modules -->
+      <section>
+        <div class="content list">
+          <img src="img/providers-comparsion.png" style="max-width:80%;">
+        </div>
+      </section>
+      <!-- Type friendly using new: http://stackoverflow.com/questions/25667321/what-is-the-type-friendly-injection -->
+
+      <!-- TOPIC 2.a.5 Angular Modules Values -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h2>VALUE</h2>
+          <h4>A simple injectable value</h4>
+          <br />
+            <pre><code class="language-javascript">
+              app.value('magic', 'DEADBEEF');
+            </code></pre>
+          <br />
+          <h4>Can not be injected into configurations.</h4>
+          <h4>Can be intercepted by decorators.</h4>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.5 Angular Modules Constant -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h2>CONSTANT</h2>
+          <h4>A constant is a value injectable anywhere !</h4>
+          <br />
+            <pre><code class="language-javascript">
+              app.constant('ratio', 1.618);
+            </code></pre>
+          <br />
+          <h4>Can not intercepted by decorators.</h4>
+          <h4>High priority (are evaluated first).</h4>
+          <h4><strong>Tip: </strong>Create an AngularJS Constant for vendor libraries' global variables.</h4>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.5 Angular Modules Services -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h2>SERVICE</h2>
+          <h4>Injectable contructor</h4>
+          <br />
+            <pre><code class="language-javascript">
+              app.service('api', function (dep) { ... });
+            </code></pre>
+          <br />
+          <h4>A singleton.</h4>
+          <h4>Good to handle cross app/controller shared data.</h4>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.5 Angular Modules Factories -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h2>FACTORY</h2>
+          <h4>Injectable contructor</h4>
+          <br />
+            <pre><code class="language-javascript">
+              app.factory('widget', function (dep) { ... return ??;});
+            </code></pre>
+          <br />
+          <h4>A provider with a $get method, essentially.</h4>
+          <h4>Can return any type of primites and custom types.</h4>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.5 Angular Modules Decorator -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h2>DECORATOR</h2>
+          <h4>Modify or encapsulate other provisions</h4>
+          <br />
+            <pre><code class="language-javascript">
+              app.config(function($provide){
+                $provide.decorate('name', function($delegate) {
+                  // Modifycations in the 'name' provisions
+                  return $delegate = ' the great';
+                });
+              });
+            </code></pre>
+          <br />
+          <h4>Userful for intercepting upstream services.</h4>
+          <h4>Only the provider provides the decorator function :-$.</h4>
+          <h4>Stackable.</h4>
+        </div>
+      </section>
+
+      <!-- TOPIC 2.a.5 Angular Modules Decorator -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h2>PROVIDER</h2>
+          <h4>The low-level nitty gritty</h4>
+          <br />
+            <pre><code class="language-javascript">
+              $provide.provider('foo', { $get: function(dep) { ... } });
+              $provide.provider('foo', function() {
+                this.$get: function(dep) { ... }
+              });
+            </code></pre>
+          <br />
+          <h4>You just need a $get method.</h4>
+          <h4>Can be configured.</h4>
+          <h4>More storage options.</h4>
+          <h4>Can $inject other providers when instantiated.</h4>
+        </div>
+      </section>
+      <!-- use a service to get stuff http://stackoverflow.com/questions/17497006/use-http-inside-custom-provider-in-app-config-angular-js -->
+      
+      <!-- TOPIC 2.a.5 Angular Modules Decorator -->
+      <section data-bespoke-state="quizcode">
+        <div class="content">
+          <h2>QUIZ!</h2>
+          <br />
+            <pre><code class="language-javascript">
+              app.value('v', 1234);
+              
+              app.config(function(c) { ... });
+              app.config(function(v) { ... });
+              app.config(function($provide) { 
+                $provide.provider('p', {
+                  $get: function(v) { ... }
+                });
+              });
+              app.constant('c', function(v) { ... });
+              app.factory('f', function(v) { ... });
+              app.run(function(v) { ... });
+              app.service('s', function(c) { ... });
+              app.value('w', function(v) { ... });
+              
+              app.controller('ctrl', function(v, c, w, f, p, s) { ... });
+            </code></pre>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.5 Angular Modules Values -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Value recipe</h4>
+          <br />
+              <pre><code class="language-javascript">
+  var myApp = angular.module('myApp', []);
+  myApp.value('apiToken', 'a12345654321x');
+  myApp.controller('mainController', ['apiToken', function MainController(apiToken) {
+    this.apiToken = apiToken;
+  }]);
+            </code></pre>
+            <br />
+            <pre><code class="language-php">
+              &lt;html ng-app="myApp"&gt;
+              &lt;body ng-controller="mainController as main"&gt;
+                Client ID: {{main.clientId}}
+              &lt;/body&gt;
+              &lt;/html&gt;
+            </code></pre>
+            <br />
+            <h5>In this example, we've used the Value recipe to define the value to provide when <span class="inline-code">MainController</span> asks for the service with id "apiToken".</h5>
+        </div>
+      </section>
+      
+      <!-- TOPIC 2.a.5 Angular Modules Values -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Value recipe</h4>
+          <br />
+              <pre><code class="language-javascript">
+  var myApp = angular.module('myApp', []);
+  myApp.value('apiToken', 'a12345654321x');
+  myApp.controller('mainController', ['apiToken', function MainController(apiToken) {
+    this.apiToken = apiToken;
+  }]);
+            </code></pre>
+            <br />
+            <pre><code class="language-php">
+              &lt;html ng-app="myApp"&gt;
+              &lt;body ng-controller="mainController as main"&gt;
+                Client ID: {{main.clientId}}
+              &lt;/body&gt;
+              &lt;/html&gt;
+            </code></pre>
+            <br />
+            <h5>In this example, we've used the Value recipe to define the value to provide when <span class="inline-code">MainController</span> asks for the service with id "apiToken".</h5>
+        </div>
+      </section>
+
+  
+  
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    </body>
+</html>

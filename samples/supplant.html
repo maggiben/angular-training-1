@@ -1,0 +1,81 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+    </head>
+    <body>
+        <script>
+            String.prototype.supplant = function() {
+                "use strict";
+                var formatted = this;
+                var arg = arguments[0];
+                var regexp = null;
+                var key = null;
+                // Deal with objects
+                if(arg === Object(arg) && arg instanceof Array !== true) {
+                    //regexp = new RegExp('\\{{' + key + '\\}}', 'gi');
+                    return this.replace(/\{([^{}]*)\}/g, function(a, b) {
+                        var value = arg[b];
+                        console.log(value);
+                        return typeof value === 'string' ? value : a.toString();
+                    });
+                    /*
+                    for(key in arg) {
+                        if(arg.hasOwnProperty(key)) {
+                            regexp = new RegExp('\\{{' + key + '\\}}', 'gi');
+                            formatted = formatted.replace(regexp, function(a, b) {
+                                var value = arg[b];
+                                return typeof value === 'string' ? value : a.toString();
+                            });
+                        }
+                    }*/
+                // Deal with strings
+                } else {
+                    for (var i = 0; i < arguments.length; i++) {
+                        var regexp = new RegExp('\\{{' + i + '\\}}', 'gi');
+                        formatted = formatted.replace(regexp, arguments[i]);
+                    }
+                }
+                return formatted;
+            };
+            var person = {};
+ 
+            var propertyDefinition = function(value) {
+                 
+                var get = function(){
+                    return value;
+                };
+             
+                var set = function(newValue) {
+                    if(value != newValue) {
+                        value = newValue;
+                        console.log("Value changed to " + value);
+                    }
+                };
+             
+                return {
+                    configurable: true,
+                    enumerable: true,
+                    get: get,
+                    set: set
+                };    
+            };
+ 
+            Object.defineProperty(
+                person, 
+                "firstName", 
+                propertyDefinition()
+            );
+             
+            person.firstName = "Scott";
+            person.firstName = "Allen";
+            console.log(person.firstName);
+
+            var oldText = "hello {name}";
+            var data = {
+                name: "benjamin"  
+            };
+            var newText = oldText.supplant(data);
+            document.write(newText);
+        </script>
+    </body>
+</html>

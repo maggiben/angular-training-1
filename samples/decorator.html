@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <pre>Wellcome user: {{user | json}}</pre>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.value('userId', 'DEADBEEF');
+            myApp.config(function ($provide) {
+                $provide.decorator('userId', function ($delegate) {
+                    return $delegate + '-XXX';
+                });
+            });
+            myApp.controller('myAppController', ['$scope', 'userId', function($scope, userId){
+                $scope.user = {
+                    name: 'Benjamin',
+                    id: userId
+                };
+            }]);
+        </script>
+    </body>
+</html>

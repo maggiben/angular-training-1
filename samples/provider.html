@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <pre>Wellcome user: {{user | json}}</pre>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.provider('drink', function(){
+                var ingredients = ['coffee', 'milk'];
+                return {
+                    setIngredients: function (newIngredients) {
+                        ingredients = newIngredients;
+                    },
+                    addIngredients: function (newIngredients) {
+                        ingredients = ingredients.concat(newIngredients);
+                    },
+                    // also accept a constructor
+                    $get: function () {
+                        return {
+                            ingredients: ingredients
+                        }
+                    }
+                };
+            });
+            
+            myApp.config(function ($provide, drinkProvider) {
+                drinkProvider.addIngredients(['water', 'sugar']);
+            });
+            myApp.controller('myAppController', ['$scope', 'drink', function($scope, drink){
+                $scope.user = {
+                    name: 'Benjamin',
+                    drink: drink
+                };
+            }]);
+        </script>
+    </body>
+</html>

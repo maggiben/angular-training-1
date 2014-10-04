@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS 101</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+
+      <!-- TOPIC 1.c.1 Angular Scopes http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              <h4>Scopes</h4>
+            </div>
+          </div>
+          <div class="byline">
+            <div class="classy">
+              scope is an object that refers to the application model. It is an execution context for expressions. Scopes are arranged in hierarchical structure which mimic the DOM structure of the application. Scopes can watch expressions and propagate events.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.2 Angular Scopes http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>The $scope View of the World</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- The scopes of the application refer to the application model.</h4>
+            <h4>- Scopes serve as the glue between the controller and the view.</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
+            <h4>- Scopes in AngularJS have hierarchy.</h4>
+            <h4>- Scopes provide the ability to watch for model changes.</h4>
+            <h4>- Scopes are the source of truth.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.3 Angular Scopes http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>All properties found on the $scope object are automatically accessible to the view.</h4>
+          <br />
+            <pre><code class="language-php">
+              &lt;a href="#/home"&gt;&lt;/a&gt;
+              &lt;div ng-app="myApp"&gt;
+                &lt;h1&gt;Hello {{ name }}&lt;/h1&gt;
+              &lt;/div&gt;
+            </code></pre>
+            <br />
+            <h4>code:</h4>
+            <br />
+            <pre><code class="language-javascript">
+              angular.module('myApp', [])
+              .run(function($rootScope) {
+                $rootScope.name = "World";
+              });
+            </code></pre>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.4 Angular Scopes http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Scope characteristics</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- They provide observers to watch for model changes.</h4>
+            <h4>- They provide the ability to propagate model changes.</h4> <!-- http://www.sitepoint.com/understanding-angulars-apply-digest/ -->
+            <h4>- They can be nested.</h4>
+            <h4>- Behaviors can be assigned to scopes.</h4>
+            <h4>- They can emit and listen for events.</h4>
+            <h4>- They provide an execution environment in which expressions are evaluated.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.c.4 Angular Scopes http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Scope Hierarchies.</h4>
+          <br />
+            <pre><code class="language-php">
+&lt;div class=&quot;show-scope-demo&quot;&gt;
+  &lt;div ng-controller=&quot;GreetController&quot;&gt;
+    Hello {{name}}!
+  &lt;/div&gt;
+  &lt;div ng-controller=&quot;ListController&quot;&gt;
+    &lt;ol&gt;
+      &lt;li ng-repeat=&quot;name in names&quot;&gt;{{name}} from {{department}}&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+            </code></pre>
+            <br />
+            <h4>code:</h4>
+            <br />
+            <pre><code class="language-javascript">
+  angular.module('scopeExample', [])
+  .controller('GreetController', function($scope, $rootScope) {
+    $scope.name = 'World';
+    $rootScope.department = 'Angular';
+  })
+  .controller('ListController', function($scope) {
+    $scope.names = ['Igor', 'Misko', 'Vojta'];
+  });
+            </code></pre>
+        </div>
+      </section>
+      
+      <section>
+        <div class="content list">
+          <h2>Hierarchies structures</h2>
+          <img src="img/concepts-scope.png" style="background-color: #fff;">
+        </div>
+      </section>
+      
+      <section>
+        <div class="content list">
+          <h2>Hierarchies structures</h2>
+          <div class="mxgraph" style="position:relative;overflow:hidden;width:351px;height:141px;display:inline-block;_display:inline;"><div style="width:1px;height:1px;overflow:hidden;">xVVNc5wwDP01HNvhY7PTPTbppr10ptM9tD06WAFPDWaMCZBfHxnLGIdNju1prWdLfu9JZpPirpm+atbV3xUHmeQpn5LiS5LnWVoc8Mcis0MONxhZoNKC06EAXMQz+ExCB8Ghjw4apaQRXQyWqm2hNBH2qGR8RccqXz4Al5LJPfpLcFM79FN+DPg3EFXtr8mOJ7fTm9nX4PDIBmk+LBBpbZivRaqm1IV5RgVmAk4Ud6yNKD0r1USAhj54RXIF8aJLHpTmoCNIivbv1rfijL3TSmGiXTXTHUjbP98al3b/xu5ql4Y2uvqtBLLjicmBqO/swwRsLQa3Yy0MXDpW2p0Rp4uSQRvw47UnEGThSIJqwOjZGk4EvBE0jVlK8bhpN0H1ptMeY2RetVYOanFBgq+LL/63+MPplfjjvxNPX4F3xXN8ixSiImHmnyCZEao9h51bmIT5jScyWv/BdfrxxkYtcrJb+JRcEPZ6w7T5rLUaESol63tRevheWNZYcCFkWbzvL5JWg14aE0YaC1VAp5ZG77uwcXkdu63NK6gX2U8xjWvm0x0/lECC+5n2KY4undq+Tp+4fqxfJTpRu8Sl16uwa+3HMHxU3PHw71CcXwA=</div></div>
+        </div>
+      </section>
+      
+      
+      
+      <!-- TOPIC 1.c.4 Angular Scopes http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Scope Hierarchies.</h4>
+          <br />
+          <pre><code class="language-php">
+          &lt;div id="myApp">Initializing...&lt;/div&gt;
+            &lt;script type="text/template" id="myTemplate"&gt;
+              &lt;div ng-controller="myController"&gt;
+                &lt;input type="text" ng-model="model"/&gt;
+                {{model}}
+                &lt;button ng-click="reset()"&gt;Reset&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/script&gt;
+          </code></pre>
+          <br />
+            <h4>code:</h4>
+            <br />
+            <pre><code class="language-javascript">
+var app = angular.module("myApp", []);
+app.controller("myController", function($scope) {
+    $scope.model = '';
+    $scope.reset = function() {
+        $scope.model = '';
+    };
+});
+angular.element(document).ready(function() {
+    var template = document.getElementById("myTemplate");
+    var appDiv = document.getElementById("myApp");
+    setTimeout(function() {
+        appDiv.innerHTML = template.innerHTML;
+        angular.bootstrap(angular.element(appDiv), ['myApp']);
+    }, 1000);
+});
+            </code></pre>
+        </div>
+      </section>
+
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    <script type="text/javascript" src="https://www.draw.io/embed.js"></script>
+    </body>
+</html>

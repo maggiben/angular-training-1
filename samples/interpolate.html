@@ -1,0 +1,22 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <input ng-model="name" placeholder="name" />
+        
+        <button ng-click="sayName(name)">Say name</button>
+        <script>
+            var myApp = angular.module('myApp', []);
+
+            myApp.controller('myAppController', function($scope, $interpolate) {
+                $scope.sayName = function(name) {
+                    var message = $interpolate('Hello {{name | uppercase}}!');
+                    alert($scope.$eval(message));
+                };
+            });
+        </script>
+    </body>
+</html>

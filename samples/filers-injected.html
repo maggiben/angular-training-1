@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <ul>
+            <li ng-repeat="user in users">name: <strong>{{user.name}}</strong> birthdate: <i>{{getBirthdate(user.birth)}}</i></li>
+        </ul>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('myAppController', ['$scope', '$filter', function($scope, $filter){
+                $scope.users = [{
+                    name: 'anna',
+                    birth: new Date(1981, 10, 2)
+                }, {
+                    name: 'tomas',
+                    birth: new Date(1989, 8, 4)
+                }, {
+                    name: 'bill',
+                    birth: new Date(1974, 1, 4)
+                }];
+                
+                $scope.getBirthdate = function(date) {
+                    return $filter('date')(date, 'MMMM d');
+                };
+            }]);
+        </script>
+    </body>
+</html>

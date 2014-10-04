@@ -1,0 +1,14 @@
+<!doctype html>
+<html ng-app>
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body>
+        <label for="price">Coffee price:</label>
+        <input ng-init="coffee.value = 0" ng-model="coffee.value" name="price" placeholder="Coffee value">
+        <ul>
+            <li>Total: {{ coffee.value | currency }}</li>
+            
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <h1>{{message | satirize:fa}}</h1>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('myAppController', ['$scope', '$filter', function($scope, $filter){
+                $scope.message = "The quick brown fox jumps over the lazy dog";
+            }]);
+            myApp.filter('satirize', function(){
+                return function(input, even) {
+                    return input.replace(/[aA-zZ]/g, function(a,b){
+                        return (b % 2) ^ even ? a.toUpperCase() : a.toLowerCase();
+                    });
+                };
+            })
+        </script>
+    </body>
+</html>

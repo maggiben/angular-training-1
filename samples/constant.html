@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+        <script src="js/moment.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <input type="text" ng-model="birth" placeholder="birth DD-MM-YYYY" />
+        <h1>You are {{age}} years old</h1>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.constant('moment', moment);
+            myApp.controller('myAppController', ['$scope', 'moment', function($scope, moment){
+                $scope.birth = "02-08-1981";
+                $scope.$watch('birth', function() {
+                   $scope.age = moment().diff(moment($scope.birth, "DD-MM-YYYY"), 'years');
+                });
+            }]);
+        </script>
+    </body>
+</html>

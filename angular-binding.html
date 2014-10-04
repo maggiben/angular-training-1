@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS 101</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+
+      <!-- TOPIC 1.b.0 Introducción a AngularJS: Que es el binding -->
+      <!-- TOPIC 1.b.1 Intro -->
+      <section>
+        <div class="content list">
+          <h2>Binding</h2>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.2 What is databinding ? -->
+      <section>
+        <div class="content">
+          <div class="byline">
+            <div class="classy">
+              <h4>What is databinding?</h4>
+            </div>
+          </div>
+          <div class="byline">
+            <div class="classy">
+              Data binding is the process that establishes a connection between the application UI (User Interface) and business logic. If the settings and notifications are correctly set, the data reflects changes when made. It can also mean that when the UI is changed, the underlying data will reflect that change. (wikipedia)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content list">
+          <h2>1-Way Databinding</h2>
+        </div>
+      </section>
+      
+      <!-- TOPIC 1.b.3 1-Way-Databinging -->
+      <section>
+        <div class="content list">
+          <img src="https://docs.google.com/drawings/d/188fvO3s_HIPP5InipnkFQEntP8DCcYSJe7VygD47Tfc/pub?w=713&h=806" style="max-height:80%;">
+        </div>
+      </section>
+      
+      <!-- TOPIC 1.b.4 Clasic approach -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Clasic approach</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>1. A function gets attached to the ‘click’ event of button</h4>
+            <h4>2. The functon collects fields and puts them into a variable.</h4>
+            <h4>3. The variables gets serialized into JSON and goes to server.</h4>
+            <h4>4. We mark “request in process” state using another variable (to not react double clicks mainly).</h4>
+            <h4>5. We modify DOM adding indicator.</h4>
+            <h4>6. As soon as the request finihes we parse response body and get invalidation data.</h4>
+            <h4>7. We modify DOM adding invalidation information and removing the loading indicator.</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.5 1-Way-Databinging -->
+      <section>
+        <div class="content list">
+          <h2>2-Way Databinding</h2>
+        </div>
+      </section>
+      <section>
+        <div class="content list">
+          <img src="https://docs.google.com/drawings/d/1f3woc1Fz3lU4oDGUrCHNhr6CUgp_S2NVXtj2cKJb2Og/pub?w=660&h=1072" style="max-height:80%;">
+        </div>
+      </section>
+      
+      <!-- TOPIC 1.b.6 Benefit of using angular -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>The benefit of using angular</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Angular makes databinding declarative, DOM augumenting</h4>
+            <h4>- Works with themplates (mustache).</h4>
+            <h4>- No need to manipulate the DOM.</h4>
+            <h4>- Models are POJO simpler syntax than accessors.</h4>
+            <h4>- It Automagically monitors your objects for you, no need to write listeners !</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPIC 1.b.8 Introducción a AngularJS: Que es el binding -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Angular application.</h4>
+          <br />
+          <pre><code class="language-php">
+            &lt;input ng-model="person.name" type="text" placeholder="Your name"&gt;
+            &lt;h1&gt;Hello {{ person.name }}&lt;/h1&gt;
+          </code></pre>
+          <br />
+          <h4>When the value in the input field changes, the <span class="inline-code">person.name</span> will be updated and the view will reflect
+    the change.</h4>
+        </div>
+      </section>
+
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Anoter angular example.</h4>
+          <br />
+          <pre><code class="language-php">
+            &lt;p&gt;Login name: &lt;input ng-model="user.name" /&gt;&lt;/p&gt;
+            &lt;p&gt;Password: &lt;input type="password" ng-model="user.password" /&gt;&lt;/p&gt;
+            &lt;script type="text/javascript"&gt;
+              var myApp = angular.module('myApp',[]);
+              function MyCtrl($scope) {
+                $scope.user = {
+                  name: '',        // Initially populate
+                  password: 'abc'  // Blank value
+                };
+              }
+            &lt;/script&gt;
+          </code></pre>
+        </div>
+      </section>
+      
+            
+      <!-- lots of samples https://github.com/angular/angular.js/wiki/JsFiddle-Examples -->
+      
+      <!-- TOPIC 1.b.8 Introducción a AngularJS: Que es el binding -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <h4>Knockout application.</h4>
+          <br />
+          <pre><code class="language-php">
+            &lt;p&gt;Login name: &lt;input data-bind="value: userName" /&gt;&lt;/p&gt;
+            &lt;p&gt;Password: &lt;input type="password" data-bind="value: userPassword" /&gt;&lt;/p&gt;
+            &lt;script type="text/javascript"&gt;
+              var viewModel = {
+                userName: ko.observable(""),        // Initially blank
+                userPassword: ko.observable("abc"), // Prepopulate
+              };
+            &lt;/script&gt;
+          </code></pre>
+        </div>
+      </section>
+      
+      <!-- TOPIC 1.b.9 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <h2>Databinding under the hood</h2>
+          <img src="img/digest.png" style="max-height:80%;">
+        </div>
+      </section>
+      
+      <!-- TOPIC 1.b.7 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <h2>Any downsides ??</h2>
+          <h4>Yes but...</h4> <!-- brief talk about dirty checking vs change listeners -->
+        </div>
+      </section>
+      
+      <!-- TOPIC 1.b.10 Introducción a AngularJS: Que es el binding -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Recap:</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Automatic data binding gives us the ability to consider the view to be a projection of the model state</h4>
+            <h4>- Any time the model is changed in the client-side model, the view reflects these changes without writing any custom code. It just works.</h4>
+            <h4>- In the Model View Controller (or MVC) view of the world, the controller doesn’t have to worry about being in the mix of rendering the view..</h4>
+          </div>
+        </div>
+      </section>
+
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    </body>
+</html>

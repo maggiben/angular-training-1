@@ -1,0 +1,20 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController as mainController">
+        <div ng-repeat-start="thing in mainController.things"></div>
+            <hr />
+            <marquee direction="right">{{thing}}</marquee>
+            <hr />
+            <marquee direction="left">{{thing}}</marquee>
+        <div ng-repeat-end=""></div>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('myAppController', function($scope){
+                this.things = ["one", "two", "three"];
+            });
+        </script>
+    </body>
+</html>

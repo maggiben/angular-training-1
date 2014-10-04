@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS 101</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+    <article>
+    
+      <!-- TOPIC 1.d.1 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Routes: REST/Servers v. Client Apps</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- HTTP is stateless, so routes help deﬁne application state</h4>
+            <h4>- REST emphasizes semantic routes</h4>
+            <br />
+            <h4>- But...</h4>
+            <h4>- There is more state than can be represented in a route (user state, session state)</h4>
+            <h4>- Main function is `then` which receives 2 functions, one for success and one for error</h4>
+            <h4>- Client-side apps don’t actually need routes to work (e.g. many jquery-based apps) </h4>
+          </div>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.2 Angular Routing -->
+      <section>
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Why use routes?</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Make the back button work as expected</h4>
+            <h4>- Make major (page-like) transitions clear</h4>
+            <h4>- Allow easy linking</h4>
+            <h4>- Make testing easier</h4>
+            <h4>- Encapsulate some state</h4>
+          </div>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.3 Angular Routing -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Installation
+            <pre><code class="language-javascript">
+              &lt;script src="angular.js"&gt;&lt;/script&gt;
+              &lt;script src="angular-route.js"&gt;&lt;/script&gt;
+            </code></pre>
+            Invoke
+            <pre><code class="language-javascript">
+              var myApp = angular.module('myApp', 'ngRoute')
+            </code></pre>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.4 Angular Routing -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          $routeProvider
+            <pre><code class="language-javascript">
+              var myApp = angular.module('myApp', ['ngRoute']);
+              myApp.config(function ($routeProvider) {
+                $routeProvider
+                  .when('/users', {
+                    templateUrl: 'list.html',
+                    controller : 'listController'
+                  })
+                  .when('/users/:id', {
+                    templateUrl: 'detail.html',
+                    controller : 'detailController'
+                  })
+                  .otherwise({ redirectTo: '/' });
+              });
+            </code></pre>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.5 Angular Routing -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Basic Routes
+            <pre><code class="language-javascript">
+              .when('/users/:id', {
+                templateUrl: 'detail.html',
+                controller : 'detailController'
+              })
+            </code></pre>
+            <span>:id</span> stored in $route.current.params, is available to the controller and the resolve functions.
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.6 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Routing Flow
+            <pre><code class="language-javascript">
+              &lt;a href="#/home"&gt;&lt;/a&gt;
+            </code></pre>
+            Or
+            <pre><code class="language-javascript">
+              $location.path("#/home");
+            </code></pre>
+            <!-- append image here -->
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.7 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 8 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <div class="unbrokenline"></div>
+          <h2>Routing Boardcasted Events</h2>
+          <div class="unbrokenline"></div>
+          <ul>
+            <li>$locationChangeStart</li>
+            <ul>
+              <li>$routeUpdate</li>
+              <li>$routeChangeStart</li>
+              <ul>
+                <li>$routeChangeError</li>
+                <li>$routeChangeSuccess</li>
+              </ul>
+            </ul>
+          </ul>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.8 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Route Object</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Controller or controllerAs</h4>
+            <h4>- Template or TemplateUrl</h4>
+            <h4>- Resolve</h4>
+            <h4>- RedirectTo</h4>
+            <h4>- [reloadOnSearch=true]</h4>
+            <h4>- [caseInsensitiveMatch=false]</h4>
+          </div>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.9 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 11 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Resolve Option</h2>
+          <div class="unbrokenline"></div>
+          Each item in the resolve map:
+          <ul>
+            <li>An optional map of dependencies which should be injected into the controller</li>
+            <li>In any of these dependencies are promises, the router will wait for them all to be resolver or one to be rejected before the controller is instantiated</li>
+            <ul>
+              <li>Success: all promises are resolved successfully.</li>
+              <li>Error: any of the promises are rejected.</li>
+            </ul>
+          </ul>
+          Using resolve for database object means:
+          <ul>
+            <li>No UI flickr as promises are resolved</li>
+            <li>Controllers can asume objects exists</li>
+            <li>Tests are cleaner: pass in data object explicitly</li>
+          </ul>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.10 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Resolve for Data
+            <pre><code class="language-javascript">
+              when('/tag/:tagName',  {
+                resolve: {
+                  tagResolve: ['tag','$route', function(tagService,  $route) {
+                    return tagService.get($route.current.params.tagName);
+                  }],
+                  sparkClustersResolve: ['sparkCluster','$route', function(sparkClusterService,   $route) {
+                    return sparkClusterService.getSparkClustersByTag($route.current.params.tagName);
+                  }]
+                }});
+            </code></pre>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.11 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 7 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          <div class="unbrokenline"></div>
+          <h2>Resolve Option</h2>
+          <div class="unbrokenline"></div>
+    
+            Treat your resolved object like a dependency in the controller:
+            <pre><code class="language-javascript">
+              .controller('ViewTagCtrl', ['$scope', 'tagResolve', 'sparkCluster'], function (...){
+                /*  */
+              })
+            </code></pre>
+            Use a ‘route controller’, not a 'view controller' (ng-­controller):
+            <pre><code class="language-javascript">
+              .when('/tag/:tagName',  {
+                controller: 'ViewTagCtrl'
+              })
+            </code></pre>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.12 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing page 10 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Resolve for Rules</h2>
+          <div class="unbrokenline"></div>
+          Resolve for Rules Rejected Promises cause routes to fail. You can use this to make rules for the route like ACLs or prerequisites. Reject a promise to cause a route to fail.
+          <br />
+          Using resolve to make rules means:
+          <div class="fake-list">
+            <h4>- All resolution rules must pass before route succeeds and controller is instantiated</h4>
+            <h4>- Common ACLs (logged-in) speciﬁed in routes, not each controller or service</h4>
+            <h4>- Can redirect the user to an appropriate page (also can do user-facing error)</h4>
+          </div>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.13 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 12 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Resolve for Rules
+            <pre><code class="language-javascript">
+              when('/tag/:tagName', {
+                resolve: {
+                  mustAuth: ['route', function(routeService) {
+                    return routeService.mustAuth('/');
+                  }]}]}});
+    
+                  routeService.mustAuth = function(redirectTo) {
+                    var authDeferred,  p;
+                    authDeferred = $q.defer();
+                    p  = userService.getCurrent();
+                    p.then(function(currentUser) {
+                      if  (angular.isUndefined(currentUser._id)) {
+                        $location.url(redirectTo);
+                        authDeferred.reject();
+                      } else {
+                        authDeferred.resolve(mustAuth);
+                      }
+                    });
+                    return authDeferred.promise;
+                  };
+            </code></pre>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.14 Angular Routing http://www.slideshare.net/EyalV/routing-29524624 page 12 -->
+      <section data-bespoke-state="livecode">
+        <div class="content">
+          Cancelling Route Changes
+            <pre><code class="language-javascript">
+              $rootScope.$on('$locationChangeStart', function (event, next, current) {
+                var result = $window.confirm('Continue?');
+                if (!result) {
+                  event.preventDefault(); return;
+                }
+              });
+            </code></pre>
+        </div>
+      </section>
+    
+      <!-- TOPIC 1.d.15 Angular Routing http://www.slideshare.net/kennystoltz/angular-js-routing page 10 -->
+      <section data-bespoke-state="livecode">
+        <div class="content list">
+          <div class="unbrokenline"></div>
+          <h2>Recap</h2>
+          <div class="unbrokenline"></div>
+          <div class="fake-list">
+            <h4>- Angular’s route system is ﬂexible and powerful, if you take advantage of resolve and promises.</h4>
+            <h4>- Probably the best way to deal with user authentication.</h4>
+            <h4>- Angular UI router: use ‘state’ instead of routes. Seems good. Worth considering if you start fresh.</h4>
+          </div>
+        </div>
+      </section>
+
+    </article>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Tauri::latin', 'Alegreya:400italic:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script src="js/bespoke.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.bootstrap.js"></script>
+    <script src="js/app.basic.js"></script>
+    </body>
+</html>

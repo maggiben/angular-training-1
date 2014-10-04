@@ -1,0 +1,59 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body ng-controller="myAppController">
+        <h1>Hello {{ person.name }}</h1>
+        <script>
+            var myApp = angular.module('myApp', [
+                'factory.prompt'
+            ]);
+            myApp.controller('myAppController', function($scope, promptFactory) {
+                $scope.person = {
+                    name: 'unknow'
+                };
+                promptFactory("Who are you?", "type your name here").then(
+                    function( response ) {
+                        $scope.person.name = response;
+                    },
+                    function() {
+                        // Fail somewhere else
+                    }
+                );
+            });
+            // avoiding interwined modules http://antjanus.com/blog/web-development-tutorials/front-end-development/angularjs-dependency-injection-nutshell/
+            /*myApp.factory("prompt", function( $window, $q ) {
+                // Define promise-based prompt() method.
+                function prompt( message, defaultValue ) {
+                    var defer = $q.defer();
+                    // The native prompt will return null or a string.
+                    var response = $window.prompt( message, defaultValue );
+                    if ( response === null ) {
+                        defer.reject();
+                    } else {
+                        defer.resolve( response );
+                    }
+                    return( defer.promise );
+                }
+                return( prompt );
+            });*/
+            angular.module('factory.prompt', [])
+            .factory('promptFactory', ['$window', '$q', function($window, $q) {
+                // Define promise-based prompt() method.
+                function prompt( message, defaultValue ) {
+                    var defer = $q.defer();
+                    // The native prompt will return null or a string.
+                    var response = $window.prompt( message, defaultValue );
+                    if ( response === null ) {
+                        defer.reject();
+                    } else {
+                        defer.resolve( response );
+                    }
+                    return( defer.promise );
+                }
+                return( prompt );
+            }]);
+        </script>
+    </body>
+</html>

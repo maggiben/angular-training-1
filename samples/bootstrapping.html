@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="js/angular.js"></script>
+    </head>
+    <body>
+        <div id="myApp">Initializing...</div>
+        <script type="text/template" id="myTemplate">
+            <div ng-controller="myController">
+                <input type="text" ng-model="person.name"/>
+                <h1>{{person.name}}</h1>
+            </div>
+        </script>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller("myController", function($scope) {
+                $scope.person = {
+                    name: 'Benjamin'
+                };
+            });
+            angular.element(document).ready(function() {
+                var template = document.getElementById("myTemplate");
+                var appDiv = document.getElementById("myApp");
+                setTimeout(function() {
+                    appDiv.innerHTML = template.innerHTML;
+                    angular.bootstrap(document, ['myApp']);
+                }, 1000);
+            });
+        </script>
+    </body>
+</html>
